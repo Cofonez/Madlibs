@@ -1,91 +1,99 @@
-from Assignment3Module import*
-def main():
-    terminate = False
-    while terminate == False:
-        print("Welcome to Mad Libs! Specify an input file, and output file and the program will interpret tokens for you to fill in")
+#prompt file input and output names, read input file
+#Prompt user to fill in any placeholders
+#write these to the placeholders in the output
+#ask user if they want to see the output
+#if so we open the output file
+#ask if they want to play again
+
+#function for getting the name of the input file
+def getName():
+    file_name = input("Enter File name: ")
+    return file_name
 
 
-        file_name = getName()
-        file_name = ioErrorCheck(file_name)
-        
-        
-        #input_file = open(file_name, "r")
-        out_filename = input("Enter an Output name: ")
-        output_file = open(out_filename, 'w')
-        line = file_name.readline()  #get a line from the file
-        while line != '': #while not at the end of file	print(line)            
-            wordslist = line.split(' ')
-            for k in range(len(wordslist)):
-                word = wordslist[k]
-                if '<' and '>' in wordslist[k]:
-                    wordslist[k] = wordslist[k].replace('-',' ')
-                    #return wordslist
+#terminate play function
+terminate = False
+while terminate == False:
+    print("Welcome to Mad Libs! Specify an input file, and output file and the program will interpret tokens for you to fill in")
 
-                
-                    new_word = input("Please enter a(n) " + wordslist[k][1:len(wordslist[k])-1])
-                    if '\n' in word:
-                        output_file.write(new_word)
-                        
-                    else:
-                        output_file.write(new_word + ' ')
+
+    file_name = getName()
+    input_file = open(file_name, "r")
+    out_filename = input("Enter an Output name: ")
+    output_file = open(out_filename, 'w')
+    line = input_file.readline()  #get a line from the file
+    while line != '': #while not at the end of file	print(line)            
+        wordslist = line.split(' ')
+        for k in range(len(wordslist)):
+            word = wordslist[k]
+            if '<' and '>' in wordslist[k]:
+                wordslist[k] = wordslist[k].replace('-',' ')
+                #return wordslist
+
+            
+                new_word = input("Please enter a(n) " + wordslist[k][1:len(wordslist[k])-1])
+                if '\n' in word:
+                    output_file.write(new_word)
+                    
                 else:
-                    if '\n' in word:
-                        output_file.write(word)
-                        
-                    else:
-                        output_file.write(word + ' ')
-                   # output_file.write(wordslist[k] + ' ')
+                    output_file.write(new_word + ' ')
+            else:
+                if '\n' in word:
+                    output_file.write(word)
+                    
+                else:
+                    output_file.write(word + ' ')
+               # output_file.write(wordslist[k] + ' ')
 
 
-                   
-        # if a special character
-        #get input from user
-        #write to output file
-        #else not special
-        #write to output
-                
+               
+    # if a special character
+    #get input from user
+    #write to output file
+    #else not special
+    #write to output
             
-            
+        
+        
 
-            line = file_name.readline()   #get the next line
+        line = input_file.readline()   #get the next line
 
-        file_name.close()
+    input_file.close()
+    output_file.close()
+    
+    #while terminate == False:
+    
+#function for getting play again condition
+    def playAgain():
+        response = input("Do you want to view the output file? Y/N: ")
+        return response
+        print(response)
+        
+    def invalidSelection():
+        while response not in ('n','y','Y','N'):
+            print("Invalid Selection")
+            return response
+
+    response = input("Do you want to view the output file? Y/N: ")
+
+    if response in ('y', 'Y'):
+        output_file = open(out_filename, 'r')
+        for line in output_file:
+            print(line,end= '')
+ 
         output_file.close()
         
-        #while terminate == False:
-        
-    #function for getting play again condition
-        def playAgain():
-            response = input("Do you want to view the output file? Y/N: ")
-            return response
-            print(response)
-            
-        def invalidSelection():
-            while response not in ('n','y','Y','N'):
-                print("Invalid Selection")
-                return response
+    play = input("Do you want to play again? Y/N: ")
+    #while play not in ('n','y','Y','N'):
+    #print("Invalid Selection")
+    invalidSelection
 
-        response = input("Do you want to view the output file? Y/N: ")
+    
+    play = input("Do you want to play again? Y/N: ")
+    if play in ('n', 'N'):
+        print("Goodbye!")
+        terminate = True
 
-        if response in ('y', 'Y'):
-            output_file = open(out_filename, 'r')
-            for line in output_file:
-                print(line,end= '')
-     
-            output_file.close()
-            
-        #play = input("Do you want to play again? Y/N: ")
-        #while play not in ('n','y','Y','N'):
-        #print("Invalid Selection")
-        #invalidSelection
+                
+    
 
-        
-        play = input("Do you want to play again? Y/N: ")
-        if play in ('n', 'N'):
-            print("Goodbye!")
-            terminate = True
-
-                    
-        
-       
-main()
