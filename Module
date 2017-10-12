@@ -1,0 +1,37 @@
+#prompt file input and output names, read input file
+#Prompt user to fill in any placeholders
+#write these to the placeholders in the output
+#ask user if they want to see the output
+#if so we open the output file
+#ask if they want to play again
+
+#function for getting the name of the input file
+def getName():
+    file_name = input("Enter File name: ")
+    return file_name
+
+
+#function for getting play again condition
+def playAgain():
+    response = input("Do you want to view the output file? Y/N: ")
+    return response
+    print(response)
+
+
+#       
+def invalidSelection():
+    while response not in ('n','y','Y','N'):
+        print("Invalid Selection")
+        return response
+    
+def ioErrorCheck(file_name):
+    done = False
+    while not done:
+        try:
+            file = open(file_name,'r')
+            #file = file.read()
+            return file
+            done = True
+        except IOError:
+            file_name = input("invalid, tryagain")
+
